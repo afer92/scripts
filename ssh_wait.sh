@@ -41,7 +41,7 @@ get_port_status() {
         $CMD 2>/dev/null
         [ $? -eq 0 ] && echo "open"
     else
-        which nmap || die "No nmap in PATH"
+        which nmap >/dev/null 2>&1 || die "No nmap in PATH"
         nmap $MAX_TIME $HOST -p $PORT -Pn | grep "^${PORT}/tcp " | awk '{print $2;}'
     fi
 }
